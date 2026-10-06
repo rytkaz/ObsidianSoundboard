@@ -40,7 +40,8 @@ export class NodeActions {
 
     const result = pasteNodes(board, camera.toWorld(spot.x, spot.y), this.pasteCount * PASTE_NUDGE, this.host.filePath);
     if (!result) return;
-    if (result.skippedSelf) new Notice("Soundboard: a soundboard cannot be nested inside itself, so it was not pasted.");
+    if (result.skippedSelf)
+      new Notice("Soundboard: a soundboard cannot be nested inside itself, so it was not pasted.");
     if (!result.ids.length) return;
 
     this.host.scheduleSave();

@@ -32,9 +32,7 @@ export function blockSize(count: number) {
 }
 
 function overlaps(a: Rect, b: Rect) {
-  return (
-    a.x < b.x + b.w + MARGIN && a.x + a.w + MARGIN > b.x && a.y < b.y + b.h + MARGIN && a.y + a.h + MARGIN > b.y
-  );
+  return a.x < b.x + b.w + MARGIN && a.x + a.w + MARGIN > b.x && a.y < b.y + b.h + MARGIN && a.y + a.h + MARGIN > b.y;
 }
 
 /**

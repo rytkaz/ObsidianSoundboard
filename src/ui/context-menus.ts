@@ -53,8 +53,18 @@ export class ContextMenus {
     const { playback, layer, selection } = this.host;
     const menu = new Menu();
 
-    menu.addItem((i) => i.setTitle("Play / pause scene").setIcon("play").onClick(() => playback.toggleScene(sc)));
-    menu.addItem((i) => i.setTitle("Rename scene…").setIcon("pencil").onClick(() => layer.startSceneRename(sc.id)));
+    menu.addItem((i) =>
+      i
+        .setTitle("Play / pause scene")
+        .setIcon("play")
+        .onClick(() => playback.toggleScene(sc))
+    );
+    menu.addItem((i) =>
+      i
+        .setTitle("Rename scene…")
+        .setIcon("pencil")
+        .onClick(() => layer.startSceneRename(sc.id))
+    );
 
     this.addCopyDelete(menu, selection.size);
     menu.showAtMouseEvent(e);
@@ -93,7 +103,10 @@ export class ContextMenus {
   addItems(menu: Menu, at?: Point, includeScene = true) {
     const { importer } = this.host;
     menu.addItem((i) =>
-      i.setTitle("Import audio from computer").setIcon("upload").onClick(() => importer.pickFromComputer(at))
+      i
+        .setTitle("Import audio from computer")
+        .setIcon("upload")
+        .onClick(() => importer.pickFromComputer(at))
     );
     menu.addItem((i) =>
       i
@@ -102,16 +115,30 @@ export class ContextMenus {
         .onClick(() => importer.pickFolderFromComputer(at))
     );
     menu.addItem((i) =>
-      i.setTitle("Add audio from vault").setIcon("file-audio").onClick(() => importer.pickAudioFromVault(at))
+      i
+        .setTitle("Add audio from vault")
+        .setIcon("file-audio")
+        .onClick(() => importer.pickAudioFromVault(at))
     );
     menu.addItem((i) =>
-      i.setTitle("Add folder from vault").setIcon("folder-open").onClick(() => importer.pickFolderFromVault(at))
+      i
+        .setTitle("Add folder from vault")
+        .setIcon("folder-open")
+        .onClick(() => importer.pickFolderFromVault(at))
     );
     menu.addItem((i) =>
-      i.setTitle("Add soundboard from vault").setIcon("layers").onClick(() => importer.pickBoardFromVault(at))
+      i
+        .setTitle("Add soundboard from vault")
+        .setIcon("layers")
+        .onClick(() => importer.pickBoardFromVault(at))
     );
     if (includeScene) {
-      menu.addItem((i) => i.setTitle("Add scene").setIcon("square-dashed").onClick(() => importer.addScene(at)));
+      menu.addItem((i) =>
+        i
+          .setTitle("Add scene")
+          .setIcon("square-dashed")
+          .onClick(() => importer.addScene(at))
+      );
     }
   }
 
@@ -121,7 +148,12 @@ export class ContextMenus {
     const { actions } = this.host;
     const suffix = selectedCount > 1 ? ` ${plural(selectedCount, "item")}` : "";
     menu.addSeparator();
-    menu.addItem((i) => i.setTitle(`Copy${suffix}`).setIcon("copy").onClick(() => actions.copySelected()));
+    menu.addItem((i) =>
+      i
+        .setTitle(`Copy${suffix}`)
+        .setIcon("copy")
+        .onClick(() => actions.copySelected())
+    );
     menu.addItem((i) =>
       i
         .setTitle(`Delete${suffix}`)

@@ -25,7 +25,11 @@ export class BoardPlayback {
   private nested = new Map<string, Playable[]>();
 
   constructor(private host: PlaybackHost) {
-    this.engine = new AudioEngine(host.app, () => host.getWin(), () => host.onChange());
+    this.engine = new AudioEngine(
+      host.app,
+      () => host.getWin(),
+      () => host.onChange()
+    );
   }
 
   /* ---------- state of a card ---------- */
@@ -48,8 +52,8 @@ export class BoardPlayback {
     else await this.startUnit(s, ms);
   }
 
-  /** Play or pause every card in a scene, with the scene fade. */
-  toggleScene(sc: Scene) {
+  /** Play or pause every card in a scene, with the scene fade. Resolves once everything has started. */
+  async toggleScene(sc: Scene) {
     const board = this.host.getBoard();
     const settings = this.host.getSettings();
     const members = soundsIn(board, sc);
@@ -69,7 +73,7 @@ export class BoardPlayback {
         }
       }
     }
-    members.forEach((s) => void this.startUnit(s, ms));
+    await Promise.all(members.map((s) => this.startUnit(s, ms)));
   }
 
   stopAll() {
@@ -143,7 +147,7 @@ export class BoardPlayback {
 
   /** The sounds a card controls: itself, or everything inside a nested board (once loaded). */
   private targets(s: Sound): Playable[] {
-    return s.kind === "board" ? this.nested.get(s.id) ?? [] : [this.playable(s)];
+    return s.kind === "board" ? (this.nested.get(s.id) ?? []) : [this.playable(s)];
   }
 
   private playable(s: Sound): Playable {
@@ -165,12 +169,9 @@ export class BoardPlayback {
     const cached = this.nested.get(s.id);
     if (cached?.some((p) => this.engine.isPlaying(p))) return cached;
 
-    const leaves = await this.flattenBoard(
-      s.path,
-      `${s.id}/`,
-      () => (s.volume ?? 1) * this.sceneGain(s),
-      [this.host.getFilePath() ?? ""]
-    );
+    const leaves = await this.flattenBoard(s.path, `${s.id}/`, () => (s.volume ?? 1) * this.sceneGain(s), [
+      this.host.getFilePath() ?? "",
+    ]);
     const keep = new Set(leaves.map((l) => l.id));
     for (const old of cached ?? []) if (!keep.has(old.id)) this.engine.discard(old.id);
     this.nested.set(s.id, leaves);

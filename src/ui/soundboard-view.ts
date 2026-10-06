@@ -40,7 +40,10 @@ export class SoundboardView extends TextFileView implements BoardHost {
   readonly toolbar: Toolbar;
   readonly history = new History();
 
-  constructor(leaf: WorkspaceLeaf, readonly plugin: SoundboardPlugin) {
+  constructor(
+    leaf: WorkspaceLeaf,
+    readonly plugin: SoundboardPlugin
+  ) {
     super(leaf);
     this.selection = new Selection(() => this.layer.refreshSelection());
     this.playback = new BoardPlayback({
@@ -115,8 +118,9 @@ export class SoundboardView extends TextFileView implements BoardHost {
       this.playback.reset();
       this.selection.clear();
     }
-    this.board = parseBoard(raw, () =>
-      new Notice("Soundboard: could not read this file, starting with an empty board.")
+    this.board = parseBoard(
+      raw,
+      () => new Notice("Soundboard: could not read this file, starting with an empty board.")
     );
     // A newly opened file starts a fresh history; later changes (e.g. from sync) become undoable.
     if (clear) this.history.reset(contentSnapshot(this.board));

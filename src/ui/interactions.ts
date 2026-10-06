@@ -257,15 +257,15 @@ export class Interactions {
       // Best effort: files and folders dragged out of Obsidian's file explorer.
       const dm = (this.host.app as unknown as { dragManager?: ObsidianDragManager }).dragManager;
       const d = dm?.draggable;
-      const dragged = d?.type === "file" ? [d.file] : d?.type === "files" ? d.files ?? [] : d?.type === "folder" ? [d.file] : [];
+      const dragged =
+        d?.type === "file" ? [d.file] : d?.type === "files" ? (d.files ?? []) : d?.type === "folder" ? [d.file] : [];
 
       const folders = dragged.filter((f): f is TFolder => f instanceof TFolder);
       folders.forEach((folder) => this.host.importer.addFolder(folder, at));
 
       const files = dragged.filter(
         (f): f is TFile =>
-          f instanceof TFile &&
-          (isAudio(f.extension) || (f.extension === BOARD_EXT && f.path !== this.host.filePath))
+          f instanceof TFile && (isAudio(f.extension) || (f.extension === BOARD_EXT && f.path !== this.host.filePath))
       );
       if (files.length) this.host.importer.addFiles(files, at);
     });

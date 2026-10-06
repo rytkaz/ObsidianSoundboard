@@ -27,7 +27,11 @@ export class FilePicker extends FuzzySuggestModal<TFile> {
 
 /** Fuzzy search over a fixed list of folders. */
 export class FolderPicker extends FuzzySuggestModal<TFolder> {
-  constructor(app: App, private folders: TFolder[], private onPick: (f: TFolder) => void) {
+  constructor(
+    app: App,
+    private folders: TFolder[],
+    private onPick: (f: TFolder) => void
+  ) {
     super(app);
     this.setPlaceholder("Search folders that contain audio files");
   }
@@ -77,7 +81,12 @@ export class RenameModal extends Modal {
     });
 
     new Setting(contentEl)
-      .addButton((b) => b.setButtonText("Rename").setCta().onClick(() => void confirm()))
+      .addButton((b) =>
+        b
+          .setButtonText("Rename")
+          .setCta()
+          .onClick(() => void confirm())
+      )
       .addButton((b) => b.setButtonText("Cancel").onClick(() => this.close()));
 
     input.focus();

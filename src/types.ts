@@ -6,8 +6,8 @@ export const IMPORT_FOLDER = "Soundboard";
 export const AUDIO_EXTS = ["mp3", "wav", "ogg", "m4a", "flac", "webm", "aac", "opus"];
 
 /** Size of a sound card in board units. */
-export const CARD_W = 280;
-export const CARD_H = 76;
+export const CARD_W = 220;
+export const CARD_H = 84;
 
 export interface Point {
   x: number;

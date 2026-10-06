@@ -10,7 +10,10 @@ export const DEFAULT_SETTINGS: Settings = {
 };
 
 export class SoundboardSettingTab extends PluginSettingTab {
-  constructor(app: App, private owner: SoundboardPlugin) {
+  constructor(
+    app: App,
+    private owner: SoundboardPlugin
+  ) {
     super(app, owner);
   }
 
@@ -60,7 +63,9 @@ export class SoundboardSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Drag on empty space")
-      .setDesc("The middle mouse button, or Space + drag, always pans. Holding Shift does the opposite of this setting.")
+      .setDesc(
+        "The middle mouse button, or Space + drag, always pans. Holding Shift does the opposite of this setting."
+      )
       .addDropdown((d) =>
         d
           .addOption("select", "Select nodes")

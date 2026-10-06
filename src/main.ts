@@ -26,9 +26,7 @@ export default class SoundboardPlugin extends Plugin {
     this.addBoardCommand("undo", "Undo on this soundboard", (view) => view.undo());
     this.addBoardCommand("redo", "Redo on this soundboard", (view) => view.redo());
 
-    this.registerEvent(
-      this.app.vault.on("rename", (file, oldPath) => this.onVaultRename(file.path, oldPath))
-    );
+    this.registerEvent(this.app.vault.on("rename", (file, oldPath) => this.onVaultRename(file.path, oldPath)));
     this.register(() => window.clearTimeout(this.renameTimer));
   }
 

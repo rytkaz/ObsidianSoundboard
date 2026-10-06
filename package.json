@@ -1,16 +1,32 @@
 {
   "name": "obsidian-soundboard",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "private": true,
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
-    "build": "tsc --noEmit --skipLibCheck && node esbuild.config.mjs production"
+    "build": "tsc --noEmit --skipLibCheck && node esbuild.config.mjs production",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc -p tsconfig.test.json --skipLibCheck",
+    "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"*.{ts,mts,mjs,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\" \"*.{ts,mts,mjs,json,md}\"",
+    "ci": "npm run lint && npm run format:check && npm run typecheck && npm run coverage && npm run build"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "esbuild": "^0.21.0",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.20.5",
+    "@vitest/coverage-v8": "^5.0.3",
+    "esbuild": "^0.27.7",
+    "eslint": "^10.12.0",
+    "fast-check": "^4.10.2",
+    "jsdom": "^30.1.2",
     "obsidian": "latest",
-    "typescript": "^5.4.0"
+    "prettier": "^3.9.9",
+    "typescript": "^5.4.0",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.3"
   }
 }

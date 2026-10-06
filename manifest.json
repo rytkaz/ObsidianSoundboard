@@ -1,0 +1,9 @@
+{
+  "id": "soundboard",
+  "name": "Soundboard",
+  "version": "0.7.1",
+  "minAppVersion": "1.5.0",
+  "description": "A canvas-style soundboard: drop in audio files, loop them, and group them into scenes.",
+  "author": "You",
+  "isDesktopOnly": true
+}
